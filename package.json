@@ -1,0 +1,36 @@
+{
+  "name": "mistral-react-live",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "prettier": "prettier --check ./src",
+    "prettier:fix": "prettier --write ./src",
+    "eslint": "eslint --format=pretty ./src",
+    "eslint:fix": "eslint --fix --format=pretty ./src",
+    "lint": "npm run prettier && npm run eslint",
+    "lint:fix": "npm run prettier:fix && npm run eslint:fix"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.25.1",
+    "@souyahia/eslint-config-react": "^1.0.1",
+    "@souyahia/prettier-config": "^1.0.1",
+    "@souyahia/typescript-config": "^1.1.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.2.5",
+    "eslint-formatter-pretty": "^5",
+    "prettier": "^3.2.5",
+    "typescript": "5.4.5"
+  },
+  "prettier": "@souyahia/prettier-config"
+}
