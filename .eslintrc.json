@@ -1,3 +1,6 @@
 {
-  "extends": ["@souyahia/eslint-config-base", "next/core-web-vitals"]
+  "extends": ["@souyahia/eslint-config-base", "next/core-web-vitals"],
+  "rules": {
+    "no-param-reassign": 0
+  }
 }

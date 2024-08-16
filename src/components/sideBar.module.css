@@ -1,0 +1,93 @@
+.container {
+  height: 100%;
+  position: relative;
+  background-color: rgb(var(--background-end-rgb));
+}
+
+.openButton {
+  position: absolute;
+  top: 15px;
+  right: -60px;
+  border-radius: 50%;
+  display: block;
+}
+
+.openButton.opened {
+  display: none;
+}
+
+.sideBar {
+  height: 100%;
+  width: 600px;
+  border-right: solid var(--border) 1px;
+  margin-left: -600px;
+  transition: margin-left ease-out 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.sideBar.opened {
+  margin-left: 0;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: solid var(--border) 1px;
+}
+
+.header .title {
+  font-weight: bold;
+}
+
+.header .end {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.header .end .leftDivider {
+  margin-left: 15px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+  .container {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+
+  .container.opened {
+    box-shadow: rgba(0, 0, 0, 0.7) 0 0 20px 0;
+  }
+}
+
+/* Tablet and Smaller Desktop */
+@media (max-width: 700px) {
+  .container {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+
+  .sideBar {
+    width: 100vw;
+    margin-left: -100vw;
+  }
+
+  .sideBar.opened {
+    margin-left: 0;
+  }
+}

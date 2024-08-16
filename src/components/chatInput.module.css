@@ -1,0 +1,30 @@
+.container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background-color: rgb(var(--background-end-rgb));
+}
+
+.chatInputBorder {
+  padding: 10px;
+  border: solid var(--border) 1px;
+  border-radius: 15px;
+  display: flex;
+}
+
+.chatInputBorder:focus-within {
+  padding: 9px;
+  border-width: 2px;
+}
+
+.inputWrapper {
+  flex: 1;
+}
+
+.textArea {
+  background-color: rgb(var(--background-end-rgb));
+  border: none;
+  outline: none;
+}

@@ -1,93 +1,25 @@
-import Image from 'next/image';
+'use client';
+
+// import { useState } from 'react';
+// import { ControlBar } from '@/app/components/controlBar';
+// import { LiveRenderer } from '@/app/components/liveRenderer';
+import { SideBar } from '@/components/sideBar';
+import { LiveRenderer } from '@/components/liveRenderer';
 import styles from './page.module.css';
+
+// const testCode =
+//   "const Button = () => {\n  const [isHovered, setIsHovered] = React.useState(false);\n\n  const buttonStyle = {\n    backgroundColor: 'blue',\n    color: 'white',\n    padding: '10px 20px',\n    border: 'none',\n    cursor: 'pointer',\n    width: isHovered ? '200px' : '100px',\n    transition: 'width 0.3s'\n  };\n\n  return (\n    <button\n      style={buttonStyle}\n      onMouseEnter={() => setIsHovered(true)}\n      onMouseLeave={() => setIsHovered(false)}\n    >\n      Hover Me!\n    </button>\n  );\n};render(<Button />);";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href='https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            By{' '}
-            <Image
-              src='/vercel.svg'
-              alt='Vercel Logo'
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src='/next.svg'
-          alt='Next.js Logo'
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
-        </a>
-      </div>
-    </main>
+    <div className={styles.main}>
+      <SideBar />
+      <LiveRenderer />
+      {/* <ControlBar */}
+      {/*  isEditorOpened={isEditorOpened} */}
+      {/*  onToggleEditor={() => setIsEditorOpened((value) => !value)} */}
+      {/* /> */}
+      {/* <LiveRenderer code={testCode} isEditorOpened={isEditorOpened} /> */}
+    </div>
   );
 }

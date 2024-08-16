@@ -1,0 +1,176 @@
+.container {
+  width: 100%;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container.assistant {
+  flex-direction: row;
+}
+
+.container.user {
+  flex-direction: row-reverse;
+}
+
+.profilePicture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 10px 10px 10px;
+  border: solid var(--border) 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assistant .profilePicture {
+  background-image: url(/mistral-logo.png);
+  background-position: center;
+  background-size: 70%;
+  background-repeat: no-repeat;
+}
+
+.user .profilePicture {
+  background-color: #676767;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.assistant .content {
+  align-items: start;
+}
+
+.user .content {
+  align-items: end;
+}
+
+.messageBubble {
+  max-width: 450px;
+  color: rgb(250, 250, 249);
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  width: fit-content;
+  word-wrap: break-word;
+  position: relative;
+}
+
+.assistant .messageBubble {
+  background-color: #342f2e;
+  box-shadow: rgb(var(--background-start-rgb)) 10px 0 0 0;
+}
+
+.user .messageBubble {
+  background-color: #ff480d;
+  text-align: right;
+  box-shadow: rgb(var(--background-start-rgb)) -10px 0 0 0;
+}
+
+.messageBubbleLine {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--border);
+}
+
+.messageBubbleArrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 20px solid;
+}
+
+.assistant .messageBubbleArrow {
+  border-right: 12px solid transparent;
+  border-top-color: #342f2e;
+  left: -8px;
+}
+
+.user .messageBubbleArrow {
+  border-left: 12px solid transparent;
+  border-top-color: #ff480d;
+  right: -8px;
+}
+
+.timestamp {
+  margin: 0 10px;
+  font-size: 12px;
+  font-family: monospace;
+  color: #b9b9b9;
+}
+
+.error .messageBubble {
+  background-color: #b11414;
+}
+
+.error .messageBubbleArrow {
+  display: none;
+}
+
+.error .messageBubbleLine {
+  display: none;
+}
+
+.error .timestamp {
+  display: none;
+}
+
+.fakeWriting .messageBubble {
+  position: relative;
+  padding: 20px 50px 20px 22px;
+  background-color: #262220;
+}
+
+.fakeWriting .messageBubble>div {
+  position: absolute;
+  background-color: rgb(200, 200, 200);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  left: 33px;
+  animation: jumping 1s ease-out infinite;
+  animation-delay: 0.2s;
+}
+
+.fakeWriting .messageBubble>div:first-child {
+  left: 20px;
+  animation-delay: 0s;
+}
+
+.fakeWriting .messageBubble>div:last-child {
+  left: 46px;
+  animation-delay: 0.4s;
+}
+
+.fakeWriting .messageBubbleArrow {
+  border-top-color: #262220;
+}
+
+.fakeWriting .messageBubbleLine {
+  display: none;
+}
+
+.fakeWriting .timestamp {
+  display: none;
+}
+
+@keyframes jumping {
+  0% {
+    top: 22px;
+  }
+  30% {
+    top: 12px;
+  }
+  100% {
+    top: 22px;
+  }
+}

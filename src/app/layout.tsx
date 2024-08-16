@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
+
+import '@mantine/core/styles.css';
 import './globals.css';
+import StoreProvider from '@/app/storeProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +22,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body>
+        <MantineProvider defaultColorScheme='dark'>
+          <ModalsProvider>
+            <StoreProvider>
+              <body className={inter.className}>{children}</body>
+            </StoreProvider>
+          </ModalsProvider>
+        </MantineProvider>
+      </body>
     </html>
   );
 }
