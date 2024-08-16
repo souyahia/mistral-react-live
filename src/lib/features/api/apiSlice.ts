@@ -1,9 +1,54 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AssistantResponse, AssistantSend } from '@/lib/features/api/api';
 import { pushMessage } from '@/lib/features/chat/chatSlice';
-import { ChatRole } from '@/lib/features/chat/message';
+import { ChatMessage, ChatRole } from '@/lib/features/chat/message';
+import { pushCodeVersion } from '@/lib/features/code/codeSlice';
 
-let count = 2;
+let count = 0;
+
+const fakeApiMessages: AssistantResponse[] = [
+  {
+    message: 'Hello! This is a fake API response. My name is donovan yes yes yes!',
+    code:
+      'const Component = () => {\n' +
+      '    return <button>Hello World!</button>;\n' +
+      '}\n' +
+      '\n' +
+      'render(<Component />);',
+  },
+  {
+    message: 'Ooooh okay so you want to update your component? Here is an updated version :',
+    code:
+      'const Component = () => {\n' +
+      "    return <button style={{ backgroundColor: 'red' }}>Hello World 2 V2!</button>;\n" +
+      '}\n' +
+      '\n' +
+      'render(<Component />);',
+  },
+  {
+    message: 'This is another updated version :',
+    code:
+      'const Component = () => {\n' +
+      "    return <button style={{ backgroundColor: 'white' }}>Third World Country!!</button>;\n" +
+      '}\n' +
+      '\n' +
+      'render(<Component />);',
+  },
+  {
+    message: 'Last version before loop :',
+    code:
+      'const Component = () => {\n' +
+      '    return (\n' +
+      '      <div>\n' +
+      "        <button style={{ backgroundColor: 'red' }}>LAAAAST DOUBLE</button>\n" +
+      "        <button style={{ backgroundColor: 'white' }}>LAAAAST VERSION</button>\n" +
+      '      </div>\n' +
+      '    );\n' +
+      '}\n' +
+      '\n' +
+      'render(<Component />);',
+  },
+];
 
 export const api = createApi({
   reducerPath: 'assistantApi',
@@ -11,42 +56,45 @@ export const api = createApi({
   endpoints: (builder) => ({
     send: builder.query<AssistantResponse, AssistantSend>({
       // query: (body) => ({ url: 'send', method: 'POST', body }),
-      queryFn: async (body, { dispatch }) => {
-        count += 1;
+      queryFn: async (args, { dispatch }) => {
         dispatch(
           pushMessage({
-            text: body.message,
+            text: args.message,
             timestamp: Date.now(),
             isError: false,
             role: ChatRole.USER,
+            code:
+              args.currentId !== null && args.code
+                ? { id: args.currentId, code: args.code }
+                : undefined,
+            isEditedVersion: args.edited,
           }),
         );
-        if (count % 3 === 2) {
-          throw new Error('This is a fake error thrown every 3 messages.');
-        }
         await new Promise<void>((resolve) => {
           setTimeout(() => {
             resolve();
           }, 2000);
         });
+        const msg = fakeApiMessages[count % 4];
+        count += 1;
         return {
-          data: {
-            timestamp: Date.now(),
-            message: 'This is a fake response from the assistant.',
-          },
+          data: msg,
         };
       },
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          dispatch(
-            pushMessage({
-              role: ChatRole.ASSISTANT,
-              text: data.message,
-              timestamp: Date.now(),
-              isError: false,
-            }),
-          );
+          const message: ChatMessage = {
+            role: ChatRole.ASSISTANT,
+            text: data.message,
+            timestamp: Date.now(),
+            isError: false,
+          };
+          if (data.code) {
+            message.code = { id: args.nextId, code: data.code };
+            dispatch(pushCodeVersion(data.code));
+          }
+          dispatch(pushMessage(message));
         } catch (err) {
           dispatch(
             pushMessage({

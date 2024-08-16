@@ -9,40 +9,11 @@ export interface CodeState {
   versions: CodeVersion[];
 }
 
-const test =
-  "import 'ace-builds/src-noconflict/mode-javascript';\n" +
-  "import 'ace-builds/src-noconflict/theme-dracula';\n" +
-  "import 'ace-builds/src-noconflict/ext-language_tools';\n" +
-  "import styles from './codeEditor.module.css';\n" +
-  '\n' +
-  'function formatVersion(currentVersion, isEdited) {\n' +
-  '  if (currentVersion === null) {\n' +
-  "    return '';\n" +
-  '  }\n' +
-  "  return `Version #${currentVersion + 1}${isEdited ? '* (edited)' : ''}`;\n" +
-  '}\n' +
-  '\n' +
-  '\n' +
-  'function formatVersion(currentVersion, isEdited) {\n' +
-  '  if (currentVersion === null) {\n' +
-  "    return '';\n" +
-  '  }\n' +
-  "  return `Version #${currentVersion + 1}${isEdited ? '* (edited)' : ''}`;\n" +
-  '}\n' +
-  '\n' +
-  '\n' +
-  'function formatVersion(currentVersion, isEdited) {\n' +
-  '  if (currentVersion === null) {\n' +
-  "    return '';\n" +
-  '  }\n' +
-  "  return `Version #${currentVersion + 1}${isEdited ? '* (edited)' : ''}`;\n" +
-  '}\n';
-
 const initialState: CodeState = {
-  code: test,
-  currentVersion: 0,
+  code: '',
+  currentVersion: null,
   isEdited: false,
-  versions: [{ id: 0, code: test }],
+  versions: [],
 };
 
 export const codeSlice = createSlice({
@@ -63,6 +34,11 @@ export const codeSlice = createSlice({
       state.currentVersion = id;
       state.isEdited = false;
     },
+    loadVersion: (state, action: PayloadAction<number>) => {
+      state.code = state.versions[action.payload].code;
+      state.currentVersion = action.payload;
+      state.isEdited = false;
+    },
     clearCodeVersions: (state) => {
       state.code = '';
       state.currentVersion = null;
@@ -72,6 +48,7 @@ export const codeSlice = createSlice({
   },
 });
 
-export const { editCurrentCodeVersion, pushCodeVersion, clearCodeVersions } = codeSlice.actions;
+export const { editCurrentCodeVersion, pushCodeVersion, loadVersion, clearCodeVersions } =
+  codeSlice.actions;
 
 export default codeSlice.reducer;

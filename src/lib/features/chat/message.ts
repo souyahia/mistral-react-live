@@ -11,4 +11,5 @@ export interface ChatMessage {
   text: string;
   isError: boolean;
   code?: CodeVersion;
+  isEditedVersion?: boolean;
 }

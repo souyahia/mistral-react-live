@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { ActionIcon, Button, Text, Tooltip } from '@mantine/core';
-import { IconChevronLeft, IconCode, IconMessageCode, IconMessages, IconTrash } from '@tabler/icons-react';
+import {
+  IconChevronLeft,
+  IconCode,
+  IconMessageCode,
+  IconMessages,
+  IconTrash,
+} from '@tabler/icons-react';
 import clsx from 'clsx';
 import { Chat } from '@/components/chat';
-import { CodeEditor } from '@/components/codeEditor';
+import { LiveEditor } from '@/components/liveEditor';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { modals } from '@mantine/modals';
 import { clearMessages } from '@/lib/features/chat/chatSlice';
@@ -65,6 +71,7 @@ export function SideBar() {
             </Tooltip>
             <Button
               onClick={toggleView}
+              disabled={messages.length <= 1}
               leftSection={
                 view === SideBarView.CHAT ? <IconCode size={14} /> : <IconMessages size={14} />
               }
@@ -87,7 +94,7 @@ export function SideBar() {
           </div>
         </div>
         <div className={styles.content}>
-          {view === SideBarView.CHAT ? <Chat /> : <CodeEditor />}
+          {view === SideBarView.CHAT ? <Chat /> : <LiveEditor />}
         </div>
       </div>
       <ActionIcon

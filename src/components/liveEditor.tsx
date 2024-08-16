@@ -8,7 +8,9 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import clsx from 'clsx';
-import styles from './codeEditor.module.css';
+import { useContext } from 'react';
+import { LiveContext } from 'react-live';
+import styles from './liveEditor.module.css';
 
 function formatVersion(currentVersion: number | null, isEdited: boolean): string {
   if (currentVersion === null) {
@@ -17,9 +19,15 @@ function formatVersion(currentVersion: number | null, isEdited: boolean): string
   return `Version #${currentVersion + 1}${isEdited ? '* (edited)' : ''}`;
 }
 
-export function CodeEditor() {
+export function LiveEditor() {
   const { code, currentVersion, isEdited } = useAppSelector((state: RootState) => state.code);
   const dispatch = useAppDispatch();
+  const { onChange } = useContext(LiveContext);
+
+  const handleCustomEditorChange = (value: string) => {
+    onChange?.(value);
+    dispatch(editCurrentCodeVersion(value));
+  };
 
   return (
     <div className={styles.container}>
@@ -44,7 +52,7 @@ export function CodeEditor() {
           value={code}
           mode='javascript'
           theme='monokai'
-          onChange={(value) => dispatch(editCurrentCodeVersion(value))}
+          onChange={handleCustomEditorChange}
           name='UNIQUE_ID_OF_DIV'
           editorProps={{ $blockScrolling: true }}
         />

@@ -11,6 +11,7 @@ export function ChatInput() {
   const [isControlHeld, setIsControlHeld] = useState(false);
   const [sendMessageToApi, { isFetching }] = useLazySendQuery();
   const messages = useAppSelector((state) => state.chat.messages);
+  const code = useAppSelector((state) => state.code);
   const isSendDisabled =
     (messages.length > 0 && messages[messages.length - 1].role === ChatRole.USER) ||
     isFetching ||
@@ -18,7 +19,13 @@ export function ChatInput() {
 
   const sendMessage = () => {
     if (!isSendDisabled) {
-      sendMessageToApi({ message: input });
+      sendMessageToApi({
+        message: input,
+        nextId: code.versions.length,
+        code: code.currentVersion !== null ? code.code : undefined,
+        currentId: code.currentVersion,
+        edited: code.isEdited,
+      });
       setInput('');
     }
   };
@@ -62,7 +69,7 @@ export function ChatInput() {
             maxRows={5}
             placeholder={
               messages.length > 1
-                ? 'Switch to rounded corners for the button...'
+                ? 'Switch to rounded corners for the first button...'
                 : 'A blue button that changes width on hover...'
             }
           />
