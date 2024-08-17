@@ -69,8 +69,8 @@ export function ChatInput() {
             maxRows={5}
             placeholder={
               messages.length > 1
-                ? 'Switch to rounded corners for the first button...'
-                : 'A blue button that changes width on hover...'
+                ? 'Change the button color to green...'
+                : 'A blue button with rounded corners...'
             }
           />
         </div>

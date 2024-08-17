@@ -12,7 +12,7 @@ const initialState: ChatState = {
       timestamp: Date.now(),
       isError: false,
       role: ChatRole.ASSISTANT,
-      text: "Hello! I am your React assistant powered by Mistral. Describe a UI components in a few words and I'll code it for you!",
+      text: "Hello! I am your React assistant powered by Mistral. We can work together incrementally to create reusable React UI components. Let's start by describing what your UI component should look like!",
     },
   ],
 };

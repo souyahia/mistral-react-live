@@ -27,4 +27,5 @@
   background-color: rgb(var(--background-end-rgb));
   border: none;
   outline: none;
+  font-size: 16px;
 }
